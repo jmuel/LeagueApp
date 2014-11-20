@@ -1,0 +1,20 @@
+{
+  "name": "LeagueApp",
+  "version": "0.0.0",
+  "homepage": "https://github.com/jmuel/LeagueApp",
+  "authors": [
+    "jmuel <jmuel11@gmail.com>"
+  ],
+  "description": "A small app to play around with the Riot League of Legends API",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "~0.12.1"
+  }
+}
