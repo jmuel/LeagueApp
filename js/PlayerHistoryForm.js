@@ -2,16 +2,14 @@
 define(['react', 'jquery', 'json!config.json', 'jsx!PrettyJSON', ], function(React, $, config, PrettyJSON) {
 
     var Match = React.createClass({
-        getInitialState: function() {
-            return { match: this.props.match};
-        },
         render: function() {
-            var stats = this.state.match.participants[0].stats;
-            console.log(stats);
+            var stats = this.props.match.participants[0].stats;
+            var kda = (stats.kills + stats.assists) / stats.assists;
             return (
-                <div key={this.state.match.matchId}>
-                    <span>{this.state.match.queueType}</span>
-                    <span> KDA: {(stats.kills + stats.assists) / stats.assists}</span>
+                <div key={this.props.match.matchId}>
+                    <span>{this.props.match.queueType}</span>
+                    <span> KDA: {kda.toFixed(2)}</span>
+                    <span> Won: {stats.winner.toString()}</span>
                 </div>
             )
         }

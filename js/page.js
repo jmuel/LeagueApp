@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
-define(['react', 'underscore', 'jquery', 'jsx!PlayerHistoryForm'],
-   function(React, _, $,  PlayerHistoryForm) {
+define(['react', 'jsx!PlayerHistoryForm'],
+   function(React, PlayerHistoryForm) {
    'use strict';
 
    var App = React.createClass({
