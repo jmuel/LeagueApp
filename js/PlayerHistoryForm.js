@@ -1,25 +1,12 @@
 /** @jsx React.DOM */
-define(['react', 'jquery', 'json!config.json', 'jsx!PrettyJSON', ], function(React, $, config, PrettyJSON) {
+define(['react', 'jquery', 'json!config.json', 'jsx!PrettyJSON', 'jsx!Match'], function(React, $, config, PrettyJSON, Match) {
 
-    var Match = React.createClass({
-        render: function() {
-            var stats = this.props.match.participants[0].stats;
-            var kda = (stats.kills + stats.assists) / stats.assists;
-            return (
-                <div key={this.props.match.matchId}>
-                    <span>{this.props.match.queueType}</span>
-                    <span> KDA: {kda.toFixed(2)}</span>
-                    <span> Won: {stats.winner.toString()}</span>
-                </div>
-            )
-        }
-
-    });
 
     return React.createClass({
         getInitialState: function() {
-            return {playerName: 'Xaivous'};
+            return {playerName: 'NightBlue3'};
         },
+
         render: function() {
             var matches = {};
             if(this.state.matchData) {
@@ -37,9 +24,11 @@ define(['react', 'jquery', 'json!config.json', 'jsx!PrettyJSON', ], function(Rea
                 </div>
             )
         },
+
         handleChange: function(e) {
             this.setState({playerName: event.target.value})
         },
+
         updateSummoner: function() {
             $.ajax({
                 url: config.url + config.byName + this.state.playerName,
