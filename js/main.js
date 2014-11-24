@@ -1,13 +1,13 @@
 require.config({
     baseUrl: 'js',
     paths: {
-        'jquery': 'libs/jquery/jquery',
-        'react': 'libs/react/react',
-        'JSXTransformer': 'libs/jsx-requirejs-plugin/js/JSXTransformer',
-        'jsx': 'libs/jsx-requirejs-plugin/js/jsx',
-        'underscore': 'libs/underscore/underscore',
-        'text': 'libs/requirejs-text/text',
-        'json': 'libs/requirejs-json/json'
+        'jquery': 'libs/jquery',
+        'react': 'libs/react',
+        'JSXTransformer': 'libs/JSXTransformer',
+        'jsx': 'libs/jsx',
+        'underscore': 'libs/underscore',
+        'text': 'libs/text',
+        'json': 'libs/json'
     }
 });
 

@@ -1,6 +1,33 @@
 /** @jsx React.DOM */
 define(['react', 'jquery', 'json!config.json', 'jsx!PrettyJSON', 'jsx!Match'], function(React, $, config, PrettyJSON, Match) {
+    function getMatchHistory (data, that) {
+        $.ajax({
+            url:config.url + config.matchHistory + data[Object.keys(data)[0]].id,
+            dataType: 'JSON',
+            data: {
+                endIndex: 10
+            },
+            success: function(data) {
+                that.setState({matchData:data});
+            }.bind(that),
+            error: function() {
+                console.error("failed to load match history");
+            }.bind(that)
+        });
+    }
 
+    function getPlayerId (that) {
+        $.ajax({
+            url: config.url + config.byName + that.state.playerName,
+            dataType: 'JSON',
+            success: function(data) {
+                getMatchHistory(data, that);
+            }.bind(that),
+            error: function() {
+                console.error("failed to load summoner id");
+            }.bind(that)
+        });
+    }
 
     return React.createClass({
         getInitialState: function() {
@@ -26,32 +53,11 @@ define(['react', 'jquery', 'json!config.json', 'jsx!PrettyJSON', 'jsx!Match'], f
         },
 
         handleChange: function(e) {
-            this.setState({playerName: event.target.value})
+            this.setState({playerName: event.target.value});
         },
 
         updateSummoner: function() {
-            $.ajax({
-                url: config.url + config.byName + this.state.playerName,
-                dataType: 'JSON',
-                success: function(data) {
-                    $.ajax({
-                        url:config.url + config.matchHistory + data[Object.keys(data)[0]].id,
-                        dataType: 'JSON',
-                        data: {
-                            endIndex: 10
-                        },
-                        success: function(data) {
-                            this.setState({matchData:data});
-                        }.bind(this),
-                        error: function() {
-                            console.error("failed to load match history");
-                        }.bind(this)
-                    });
-                }.bind(this),
-                error: function() {
-                    console.error("failed to load summoner id");
-                }.bind(this)
-            });
+            getPlayerId(this);
         }
     });
 });

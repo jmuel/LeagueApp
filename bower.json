@@ -21,5 +21,10 @@
     "jquery": "components/jquery#~2.1.1",
     "jsx-requirejs-plugin": "~0.5.1",
     "requirejs-json": "~0.0.3"
+  },
+  "overrides": {
+    "jsx-requirejs-plugin": {
+      "main": "js/*.js"
+    }
   }
 }
