@@ -1,0 +1,6 @@
+{
+  "testUrl": "https://warm-castle-6162.herokuapp.com/api/lol/na/v2.2/matchhistory/30297204",
+  "url": "https://warm-castle-6162.herokuapp.com/api/lol/na/",
+  "matchHistory": "v2.2/matchhistory/",
+  "byName": "v1.4/summoner/by-name/"
+}

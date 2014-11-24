@@ -1,13 +1,13 @@
 /** @jsx React.DOM */
-define(['react', 'underscore', 'jsx!PrettyJSON'], function(React, _, PrettyJSON) {
+define(['react', 'underscore', 'jquery', 'jsx!PlayerHistoryForm'],
+   function(React, _, $,  PlayerHistoryForm) {
    'use strict';
 
    var App = React.createClass({
-      getInitialState: function() {
-         return {a: '', b: ''}
-      },
       render: function() {
-         return (<PrettyJSON value={this.state} />);
+         return (
+            <PlayerHistoryForm />
+         );
       }
    });
 
