@@ -1,5 +1,5 @@
 .idea/
-js/libs/
 *.iml/
+js/libs/
 node_modules/
 bower_components/
