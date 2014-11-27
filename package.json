@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": ".js",
-  "dependencies": {},
+  "dependencies": {
+    "browserify": "^6.3.3"
+  },
   "devDependencies": {
     "gulp": "^3.8.10",
     "main-bower-files": "^2.4.0"
