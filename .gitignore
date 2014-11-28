@@ -1,5 +1,7 @@
 .idea/
 *.iml/
 js/libs/
+js/bundle.js
+js/bundle.min.js
 node_modules/
 bower_components/
