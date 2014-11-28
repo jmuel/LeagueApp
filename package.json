@@ -11,15 +11,13 @@
     "browserify": "^6.3.3",
     "envify": "^3.2.0",
     "gulp": "^3.8.10",
+    "gulp-uglify": "^1.0.1",
     "jest-cli": "^0.1.18",
     "reactify": "^0.17.1",
     "uglify-js": "^2.4.15",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.0.0",
     "watchify": "^2.1.1"
-  },
-  "scripts": {
-    "start": "watchify -t reactify -o js/bundle.js -v -d .",
-    "build": "NODE_ENV=production browserify -t reactify . | uglifyjs -cm > js/bundle.min.js",
-    "test": "jest"
   },
   "repository": {
     "type": "git",
