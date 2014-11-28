@@ -1,17 +1,25 @@
 {
   "name": "LeagueApp",
   "version": "1.0.0",
-  "description": "",
-  "main": ".js",
+  "description": "This is my toy League App",
+  "main": "js/main.js",
   "dependencies": {
-    "browserify": "^6.3.3"
+    "jquery": "^2.1.1",
+    "react": "^0.12.1"
   },
   "devDependencies": {
+    "browserify": "^6.3.3",
+    "envify": "^3.2.0",
     "gulp": "^3.8.10",
-    "main-bower-files": "^2.4.0"
+    "jest-cli": "^0.1.18",
+    "reactify": "^0.17.1",
+    "uglify-js": "^2.4.15",
+    "watchify": "^2.1.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "watchify -t reactify -o js/bundle.js -v -d .",
+    "build": "NODE_ENV=production browserify -t reactify . | uglifyjs -cm > js/bundle.min.js",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
