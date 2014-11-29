@@ -2,7 +2,13 @@ var React = require('react'),
     $ = require('jquery'),
     PrettyJSON = require('./PrettyJSON'),
     Match = require('./Match'),
-    config = require('../config.json');
+    config = require('../config.json'),
+    mui = require('material-ui'),
+    Toolbar = mui.Toolbar,
+    ToolbarGroup = mui.ToolbarGroup,
+    PaperButton = mui.PaperButton,
+    Paper = mui.Paper,
+    Input = mui.Input;
 
 function getMatchHistory (data, that) {
     $.ajax({
@@ -35,7 +41,7 @@ function getPlayerId (that) {
 
 module.exports =  React.createClass({
     getInitialState: function() {
-        return {playerName: 'NightBlue3'};
+        return {};
     },
 
     render: function() {
@@ -48,10 +54,25 @@ module.exports =  React.createClass({
 
         return (
             <div>
-                <input type="text" value={this.state.playerName} name="name" onChange={this.handleChange} />
-                <input type="button" onClick={this.updateSummoner} value="update" />
-                <div>{matches}</div>
-                <PrettyJSON value={this.state} />
+                <h2 className="mui-font-style-headline">Toolbars</h2>
+                <div>
+                    <Toolbar>
+                        <ToolbarGroup key={0} float="left">
+                            <Input ref="playerName" type="text" name="firstName"
+                                description="The Summoner you wish to look up"
+                                value={this.state.playerName} name="name" onChange={this.handleChange} />
+                        </ToolbarGroup>
+                        <ToolbarGroup key={1} float="right">
+                            <PaperButton onClick={this.updateSummoner} label="Update" primary={true}/>
+                        </ToolbarGroup>
+                    </Toolbar>
+
+                    <Paper zDepth={1}>
+                        <div>{matches}</div>
+                    </Paper>
+
+
+                </div>
             </div>
         )
     },

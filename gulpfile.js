@@ -3,15 +3,15 @@ var gulp        = require('gulp'),
     reactify    = require('reactify'),
     source      = require('vinyl-source-stream'),
     uglify      = require('gulp-uglify'),
-    buffer      = require('vinyl-buffer');
+    buffer      = require('vinyl-buffer'),
+    less        = require('gulp-less'),
+    path        = require('path');
 
-gulp.task('default', ['browserify-min', 'browserify', 'watch']);
+gulp.task('default', ['browserify-min', 'browserify', 'less', 'watch']);
 
 gulp.task('browserify-min', function() {
-    var b = browserify();
-    b.transform(reactify);
-    b.add('./js/main.js');
-    return b.bundle()
+    return browserify('./js/main.js', {transform: reactify})
+        .bundle()
         .pipe(source('LeagueApp.min.js'))
         .pipe(buffer())
         .pipe(uglify())
@@ -19,15 +19,22 @@ gulp.task('browserify-min', function() {
 });
 
 gulp.task('browserify', function() {
-    var b = browserify();
-    b.transform(reactify);
-    b.add('./js/main.js');
-    return b.bundle()
+    return browserify('./js/main.js',{transform: reactify, debug: true})
+        .bundle()
         .pipe(source('LeagueApp.js'))
         .pipe(gulp.dest('./dist'))
 });
 
+gulp.task('less', function() {
+    gulp.src('./less/main.less')
+        .pipe(less({
+            paths: [path.join(__dirname, 'less, includes')]
+        }))
+        .pipe(gulp.dest('./css'));
+});
+
 gulp.task('watch', function() {
     gulp.watch(['js/**/*.js', 'js/**/*.json'], ['browserify']);
+    gulp.watch(['less/**/*.less'], ['less']);
 });
 
