@@ -77,7 +77,7 @@ module.exports =  React.createClass({
         )
     },
 
-    handleChange: function(e) {
+    handleChange: function() {
         this.setState({playerName: event.target.value});
     },
 
