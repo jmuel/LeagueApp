@@ -2,35 +2,24 @@ var React = require('react'),
     $ = require('jquery'),
     PrettyJSON = require('./PrettyJSON'),
     Match = require('./Match'),
-    config = require('../config.json');
+    config = require('../config.json'),
+    Q = require('q');
 
-function getMatchHistory (data, that) {
-    $.ajax({
-        url:config.url + config.matchHistory + data[Object.keys(data)[0]].id,
+function getMatchHistory (id) {
+    return Q($.ajax({
+        url: config.url + config.matchHistory + id,
         dataType: 'JSON',
         data: {
             endIndex: 10
-        },
-        success: function(data) {
-            that.setState({matchData:data});
-        }.bind(that),
-        error: function() {
-            console.error("failed to load match history");
-        }.bind(that)
-    });
+        }
+    }));
 }
 
-function getPlayerId (that) {
-    $.ajax({
-        url: config.url + config.byName + that.state.playerName,
-        dataType: 'JSON',
-        success: function(data) {
-            getMatchHistory(data, that);
-        }.bind(that),
-        error: function() {
-            console.error("failed to load summoner id");
-        }.bind(that)
-    });
+function getPlayerId (playerName) {
+    return Q($.ajax({
+        url: config.url + config.byName + playerName,
+        dataType: 'JSON'
+    }));
 }
 
 module.exports =  React.createClass({
@@ -61,6 +50,18 @@ module.exports =  React.createClass({
     },
 
     updateSummoner: function() {
-        getPlayerId(this);
+        var _this = this;
+        getPlayerId(_this.state.playerName)
+            .then(function(data) {
+                return data[Object.keys(data)[0]].id;
+            })
+            .then(getMatchHistory)
+            .then(function(matchHistory) {
+                _this.setState({matchData: matchHistory});
+                return matchHistory;
+            })
+            .catch(function(error) {
+                console.log(error);
+            })
     }
 });
