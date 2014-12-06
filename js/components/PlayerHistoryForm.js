@@ -2,25 +2,8 @@ var React = require('react'),
     $ = require('jquery'),
     PrettyJSON = require('./PrettyJSON'),
     Match = require('./Match'),
-    config = require('../config.json'),
-    Q = require('q');
-
-function getMatchHistory (id) {
-    return Q($.ajax({
-        url: config.url + config.matchHistory + id,
-        dataType: 'JSON',
-        data: {
-            endIndex: 10
-        }
-    }));
-}
-
-function getPlayerId (playerName) {
-    return Q($.ajax({
-        url: config.url + config.byName + playerName,
-        dataType: 'JSON'
-    }));
-}
+    matchHistoryStore = require('../stores/matchHistoryStore'),
+    updateMatchHistory = require('../actions/updateMatchHistory');
 
 module.exports =  React.createClass({
     getInitialState: function() {
@@ -46,22 +29,22 @@ module.exports =  React.createClass({
     },
 
     handleChange: function(e) {
-        this.setState({playerName: event.target.value});
+        this.setState({playerName: e.target.value});
     },
 
     updateSummoner: function() {
-        var _this = this;
-        getPlayerId(_this.state.playerName)
-            .then(function(data) {
-                return data[Object.keys(data)[0]].id;
-            })
-            .then(getMatchHistory)
-            .then(function(matchHistory) {
-                _this.setState({matchData: matchHistory});
-                return matchHistory;
-            })
-            .catch(function(error) {
-                console.log(error);
-            })
+        updateMatchHistory(this.state.playerName);
+    },
+
+    matchHistoryChange: function(matchHistory) {
+        this.setState({matchData: matchHistory});
+    },
+
+    componentDidMount: function() {
+        this.unsubscribe = matchHistoryStore.listen(this.matchHistoryChange)
+    },
+
+    componentWillUnmount: function() {
+        this.unsubscribe();
     }
 });
