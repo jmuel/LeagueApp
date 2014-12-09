@@ -1,8 +1,8 @@
-var Reflux = require('reflux'),
+var Reflux             = require('reflux'),
     updateMatchHistory = require('../actions/updateMatchHistory'),
-    Q = require('q'),
-    $ = require('jquery'),
-    config = require('../config.json');
+    Q                  = require('q'),
+    $                  = require('jquery'),
+    config             = require('../config.json');
 
 var getMatchHistory = function(id) {
     return Q($.ajax({

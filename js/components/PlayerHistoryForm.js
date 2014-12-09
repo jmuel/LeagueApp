@@ -1,8 +1,7 @@
-var React = require('react'),
-    $ = require('jquery'),
-    PrettyJSON = require('./PrettyJSON'),
-    Match = require('./Match'),
-    matchHistoryStore = require('../stores/matchHistoryStore'),
+var React              = require('react'),
+    $                  = require('jquery'),
+    PrettyJSON         = require('./PrettyJSON'),
+    Match              = require('./Match'),
     updateMatchHistory = require('../actions/updateMatchHistory');
 
 module.exports =  React.createClass({
@@ -12,8 +11,8 @@ module.exports =  React.createClass({
 
     render: function() {
         var matches = {};
-        if(this.state.matchData) {
-            matches = this.state.matchData.matches.map(function(match) {
+        if(this.props.matchData) {
+            matches = this.props.matchData.matches.map(function(match) {
                 return <Match match={match} />
             });
         }
@@ -34,17 +33,5 @@ module.exports =  React.createClass({
 
     updateSummoner: function() {
         updateMatchHistory(this.state.playerName);
-    },
-
-    matchHistoryChange: function(matchHistory) {
-        this.setState({matchData: matchHistory});
-    },
-
-    componentDidMount: function() {
-        this.unsubscribe = matchHistoryStore.listen(this.matchHistoryChange)
-    },
-
-    componentWillUnmount: function() {
-        this.unsubscribe();
     }
 });
