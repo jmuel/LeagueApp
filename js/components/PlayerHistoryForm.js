@@ -1,5 +1,4 @@
 var React              = require('react'),
-    $                  = require('jquery'),
     PrettyJSON         = require('./PrettyJSON'),
     Match              = require('./Match'),
     updateMatchHistory = require('../actions/updateMatchHistory');

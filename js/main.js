@@ -1,8 +1,8 @@
-var React = require('react');
+var React  = require('react');
 
-var App = require('./components/app');
+var MatchHistory = require('./components/MatchHistory');
 
 React.render(
-    <App />,
+    <MatchHistory />,
     document.getElementById('root')
 );
