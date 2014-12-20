@@ -19,7 +19,7 @@ module.exports =  React.createClass({
         return (
             <div>
                 <input type="text" value={this.state.playerName} name="name" onChange={this.handleChange} />
-                <input type="button" onClick={this.updateSummoner} value="update" />
+                <input type="button" className="button-primary" onClick={this.updateSummoner} value="update" />
                 <div>{matches}</div>
                 <PrettyJSON value={this.state} />
             </div>

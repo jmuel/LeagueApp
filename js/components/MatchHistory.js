@@ -9,7 +9,9 @@ module.exports = React.createClass({
 
     render: function() {
         return (
-            <PlayerHistoryForm matchData={this.state.matchData}/>
+            <div className="container">
+                <PlayerHistoryForm matchData={this.state.matchData}/>
+            </div>
         );
     },
 
