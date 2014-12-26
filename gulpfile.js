@@ -15,7 +15,7 @@ gulp.task('browserify-min', function() {
         .pipe(source('LeagueApp.min.js'))
         .pipe(buffer())
         .pipe(uglify())
-        .pipe(gulp.dest('./dist'))
+        .pipe(gulp.dest('./dist/js'))
 });
 
 gulp.task('browserify', function() {
@@ -24,7 +24,12 @@ gulp.task('browserify', function() {
     b.add('./js/main.js');
     return b.bundle()
         .pipe(source('LeagueApp.js'))
-        .pipe(gulp.dest('./dist'))
+        .pipe(gulp.dest('./dist/js'))
+});
+
+gulp.task('grab-css', function() {
+   gulp.src('css/**.*')
+    .pipe(gulp.dest('./dist/css'))
 });
 
 gulp.task('watch', function() {

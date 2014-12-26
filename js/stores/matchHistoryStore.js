@@ -2,7 +2,7 @@ var Reflux             = require('reflux'),
     updateMatchHistory = require('../actions/updateMatchHistory'),
     Q                  = require('q'),
     $                  = require('jquery'),
-    config             = require('../config.json');
+    config             = require('../config/config.json');
 
 var getMatchHistory = function(id) {
     return Q($.ajax({
