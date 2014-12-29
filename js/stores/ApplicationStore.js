@@ -43,7 +43,7 @@ var ApplicationStore = createStore({
             currentPageName: this.currentPageName,
             currentPage: this.currentPage,
             pages: this.pages,
-            route: this.route,
+            route: this.currentRoute,
             pageTitle: this.pageTitle
         }
     },

@@ -13,5 +13,6 @@ app.plug(routrPlugin({
 }));
 
 app.registerStore(require('./js/stores/ApplicationStore'));
+app.registerStore(require('./js/stores/MatchHistoryStore'));
 
 module.exports = app;

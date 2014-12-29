@@ -1,4 +1,4 @@
-'user strict';
+'use strict';
 
 require('node-jsx').install({extension: '.jsx'});
 var express = require('express');
@@ -6,7 +6,7 @@ var serialize = require('serialize-javascript');
 var navigateAction = require('flux-router-component').navigateAction;
 var React = require('react');
 var app = require('./app');
-var HtmlComponent = React.createFactory(require('./js/components/Html'));
+var HtmlComponent = React.createFactory(require('./js/components/Html.jsx'));
 
 var server = express();
 server.use('/public', express.static(__dirname + '/dist'));
@@ -29,12 +29,16 @@ server.use(function(req, res, next) {
         var exposed = 'window.App=' + serialize(app.dehydrate(context)) + ';';
 
         var AppComponent = app.getAppComponent();
+
+
+        var markup = React.renderToString(AppComponent({
+            context: context.getComponentContext()
+        }));
+
         var html = React.renderToStaticMarkup(HtmlComponent({
             state: exposed,
             context: context.getComponentContext(),
-            markup: React.renderToString(AppComponent({
-                context: context.getComponentContext()
-            }))
+            markup: markup
         }));
 
         res.write(html);

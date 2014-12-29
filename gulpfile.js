@@ -10,7 +10,7 @@ gulp.task('default', ['browserify-min', 'browserify', 'watch']);
 gulp.task('browserify-min', function() {
     var b = browserify();
     b.transform(reactify);
-    b.add('./js/main.js');
+    b.add('./client.js');
     return b.bundle()
         .pipe(source('LeagueApp.min.js'))
         .pipe(buffer())
@@ -21,7 +21,7 @@ gulp.task('browserify-min', function() {
 gulp.task('browserify', function() {
     var b = browserify();
     b.transform(reactify);
-    b.add('./js/main.js');
+    b.add('./client.js');
     return b.bundle()
         .pipe(source('LeagueApp.js'))
         .pipe(gulp.dest('./dist/js'))

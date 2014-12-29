@@ -1,10 +1,16 @@
+'use strict';
 var React             = require('react'),
-    matchHistoryStore = require('../stores/matchHistoryStore'),
-    PlayerHistoryForm = require('./PlayerHistoryForm');
+    MatchHistoryStore = require('../stores/MatchHistoryStore'),
+    PlayerHistoryForm = require('./PlayerHistoryForm.jsx'),
+    StoreMixin        = require('fluxible-app').StoreMixin;
 
 module.exports = React.createClass({
+    mixins: [StoreMixin],
+    statics: {
+        storeListeners: [MatchHistoryStore]
+    },
     getInitialState: function() {
-        return {matchData: null};
+        return this.getStore(MatchHistoryStore).getState();
     },
 
     render: function() {
@@ -15,15 +21,9 @@ module.exports = React.createClass({
         );
     },
 
-    matchHistoryChange: function(matchHistory) {
-        this.setState({matchData: matchHistory});
-    },
-
-    componentDidMount: function() {
-        this.unsubscribe = matchHistoryStore.listen(this.matchHistoryChange)
-    },
-
-    componentWillUnmount: function() {
-        this.unsubscribe();
+    onChange: function () {
+        this.setState(
+            this.getStore(MatchHistoryStore).getState()
+        );
     }
 });

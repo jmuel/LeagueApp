@@ -1,9 +1,12 @@
 var React              = require('react'),
-    PrettyJSON         = require('./PrettyJSON'),
-    Match              = require('./Match'),
-    updateMatchHistory = require('../actions/updateMatchHistory');
+    PrettyJSON         = require('./PrettyJSON.jsx'),
+    Match              = require('./Match.jsx'),
+    UpdateMatchHistory = require('../actions/UpdateMatchHistory'),
+    StoreMixin         = require('fluxible-app').StoreMixin;
 
 module.exports =  React.createClass({
+    mixins: [StoreMixin],
+
     getInitialState: function() {
         return {playerName: 'NightBlue3'};
     },
@@ -31,6 +34,6 @@ module.exports =  React.createClass({
     },
 
     updateSummoner: function() {
-        updateMatchHistory(this.state.playerName);
+        this.props.context.executeAction(UpdateMatchHistory, this.state.playerName);
     }
 });
