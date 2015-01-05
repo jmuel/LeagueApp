@@ -1,4 +1,5 @@
 'use strict';
+
 var React             = require('react'),
     MatchHistoryStore = require('../stores/MatchHistoryStore'),
     PlayerHistoryForm = require('./PlayerHistoryForm.jsx'),

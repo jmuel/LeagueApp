@@ -1,3 +1,6 @@
-var Reflux = require('reflux');
+'use strict';
 
-module.exports = Reflux.createAction();
+module.exports = function (context, payload, done) {
+    context.dispatch('UPDATE_MATHC_HISTORY', payload);
+    done();
+}

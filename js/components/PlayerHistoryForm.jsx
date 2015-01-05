@@ -1,3 +1,5 @@
+'use strict';
+
 var React              = require('react'),
     PrettyJSON         = require('./PrettyJSON.jsx'),
     Match              = require('./Match.jsx'),

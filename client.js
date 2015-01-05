@@ -1,4 +1,5 @@
 'use strict';
+
 var React = require('react');
 var app = require('./app');
 var dehydratedState = App;

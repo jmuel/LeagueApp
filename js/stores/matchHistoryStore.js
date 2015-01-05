@@ -1,47 +1,42 @@
-var Reflux             = require('reflux'),
-    updateMatchHistory = require('../actions/updateMatchHistory'),
-    Q                  = require('q'),
-    $                  = require('jquery'),
-    config             = require('../config/config.json');
+'use strict';
 
-var getMatchHistory = function(id) {
-    return Q($.ajax({
-        url: config.url + config.matchHistory + id,
-        dataType: 'JSON',
-        data: {
-            endIndex: 10
-        }
-    }));
-};
-
-var getPlayerId =function(playerName) {
-    return Q($.ajax({
-        url: config.url + config.byName + playerName,
-        dataType: 'JSON'
-    }));
-};
-
-var getIdFromDirtyJson = function(data) {
-    return data[Object.keys(data)[0]].id;
-};
+var createStore         = require('fluxible-app/utils/createStore'),
+    MatchHistoryService = require('../services/MatchHistoryService');
 
 
-module.exports = Reflux.createStore({
-    init: function() {
-        this.listenTo(updateMatchHistory, this.output);
+
+var MatchHistoryStore = createStore({
+    storeName: 'MatchHistoryStore',
+    handlers: {
+        'UPDATE_MATCH_HISTORY' : 'handleMatchHistoryChange'
     },
-
-    output: function(playerName) {
+    initialize: function () {
+        this.matchHistory = {};
+    },
+    handleMatchHistoryChange: function (playerName) {
         var _this = this;
-        getPlayerId(playerName)
-            .then(getIdFromDirtyJson)
-            .then(getMatchHistory)
+        MatchHistoryService.getPlayerId(playerName)
+            .then(MatchHistoryService.getIdFromDirtyJson)
+            .then(MatchHistoryService.getMatchHistory)
             .then(function(matchHistory) {
-                _this.trigger(matchHistory)
-                console.log(matchHistory);
+                _this.matchHistory = matchHistory;
+                _this.emitChange();
             })
             .catch(function(error) {
                 console.log(error);
-            })
+            });
+    },
+    getState: function () {
+        return {
+            matchHistory: this.matchHistory
+        };
+    },
+    dehydrate: function () {
+        return this.getState();
+    },
+    rehydrate: function (state) {
+        this.matchHistory = state.matchHistory;
     }
 });
+
+module.exports = MatchHistoryStore;
